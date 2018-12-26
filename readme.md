@@ -11,10 +11,10 @@ start vuejs in folder test
 \$ npm run serve
 
 start ionic in folder test-ionic
-\$ ionic serve
+\$ ionic serve --lab
 ## if error ionic 
-## npm install -g ionic cordova
-## 
+- npm install -g ionic cordova
+- ionic serve --lab
 
 vuejs with call web service baseurl http://localhost:3000/
 
