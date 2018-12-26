@@ -5,13 +5,13 @@
 
 
 start node server in folder test-ws
-\$ node server.js
+-$ node server.js
 
 start vuejs in folder test
-\$ npm run serve
+-$ npm run serve
 
 start ionic in folder test-ionic
-\$ ionic serve --lab
+-$ ionic serve --lab
 ## if error ionic 
 - npm install -g ionic cordova
 - ionic serve --lab
