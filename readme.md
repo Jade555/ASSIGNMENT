@@ -1,12 +1,20 @@
 1. front-end using vue.js (test)
 2. API using Nodejs with Expressjs (test-ws)
 3. Mobile Cross platform using ionic framework (test-ionic) - please start project (test-ws) before run mobile project 
+4. PHP Zend Framework 3 (test-php) 
+
 
 start node server in folder test-ws
 \$ node server.js
 
 start vuejs in folder test
 \$ npm run serve
+
+start ionic in folder test-ionic
+\$ ionic serve
+## if error ionic 
+## npm install -g ionic cordova
+## 
 
 vuejs with call web service baseurl http://localhost:3000/
 

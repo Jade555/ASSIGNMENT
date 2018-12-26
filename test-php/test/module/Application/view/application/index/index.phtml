@@ -1,0 +1,198 @@
+<div class="container">
+    
+    <div class="row">
+      <div class="col">
+        <h1 class="display-4">ASSIGNMENT</h1>
+      </div>
+    </div>
+
+
+    <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#tabq1" aria-controls="tabq1" role="tab" data-toggle="tab">Question 1</a></li>
+    <li role="presentation"><a href="#tabq2" aria-controls="tabq2" role="tab" data-toggle="tab">Question 2</a></li>
+    <li role="presentation"><a href="#tabq3" aria-controls="tabq3" role="tab" data-toggle="tab">Question 3</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tabq1">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>3, 5, 9, 15, X - Finding X value</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <div class="form-group">
+                <label for="input1">Index</label>
+                <input type="number" class="form-control" id="input1" placeholder="X at index">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="findQ1()">Find</button>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">Answer : <span id="ansQ1"></span></div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tabq2">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>(Y + 24)+(10 × 2) = 99 Finding Y value</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            
+             <button type="button" class="btn btn-primary" onclick="findQ2()">Find</button>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">Answer : <span id="ansQ2"></span></div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tabq3">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>If 1 = 5 , 2 = 25 , 3 = 325 , 4 = 4325 Then 5 = X</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <div class="form-group">
+                <label for="input3">Index</label>
+                <input type="number" class="form-control" id="input3" placeholder="X at index">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="findQ3()">Find</button>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">Answer : <span id="ansQ3"></span></div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+   
+</div>
+
+
+<script language = "javascript"> 
+
+
+/* Configuration baseurl */
+var baseUrl = "http://localhost:8080/";
+
+function findQ1(){
+     /* 
+        1. Check input field
+        2. Check cache data (LocalStorage)
+        3. Call WebService (Zend controller)
+      */
+    var input = $('#input1').val();
+    if(input != ''){
+        let dataList = [];
+        let localData = localStorage.getItem("ansQ1");
+        if (localData) {
+            dataList = JSON.parse(localData);
+        }
+        let findKey = dataList.filter(f => f.key ==input);
+        if (findKey.length == 0){
+            var url = baseUrl+"q1/"+input;
+            $.ajax({ 
+                "url": url,
+                "method": "GET",
+                "dataType " : "json"
+            }).then(function(result){
+                if(result.status){
+                    var data = result.results;
+                    $('#ansQ1').text(data);
+                    var tmp = {
+                        key: input,
+                        value: data
+                    };
+                    dataList.push(tmp);
+                    localStorage.setItem("ansQ1", JSON.stringify(dataList));
+                }
+            });
+        }else{
+            $('#ansQ1').text(findKey[0].value);
+        }
+    }
+}
+
+
+
+function findQ2(){
+     /* 
+        1. Check cache data (LocalStorage)
+        2. Call WebService (Zend controller)
+      */
+    let localData = localStorage.getItem("ansQ2");
+    if (!localData) {
+        var url = baseUrl+"q2"
+        $.ajax({ 
+            "url": url,
+            "method": "GET",
+            "dataType " : "json"
+        }).then(function(result){
+            if (result.status) {
+              $('#ansQ2').text(result.results);
+              localStorage.setItem("ansQ2", result.results);
+            }
+        });
+
+    }else{
+        $('#ansQ2').text(localData);
+    }
+
+}
+
+function findQ3(){
+    /* 
+        1. Check input field
+        2. Check cache data (LocalStorage)
+        3. Call WebService (Zend controller)
+    */
+     if(input != ''){
+        var input = $('#input3').val();
+        let dataList = [];
+        let localData = localStorage.getItem("ansQ3");
+        if (localData) {
+            dataList = JSON.parse(localData);
+        }
+        let findKey = dataList.filter(f => f.key == input);
+        if (findKey.length == 0) {
+        var ansQ3 = [];
+            var url = baseUrl+"q3/"+input;
+            $.ajax({ 
+                "url": url,
+                "method": "GET",
+                "dataType " : "json"
+            }).then(function(result){
+    
+                if (result.status) {
+                    var tmp = result.results;
+                    tmp.forEach(e => {
+                        ansQ3.push(e.value);
+                    });
+                    $("#ansQ3").text(ansQ3);
+                    let tmpLocal = {
+                    key: input,
+                    value: ansQ3
+                    };
+                    dataList.push(tmpLocal);
+                
+                    localStorage.setItem("ansQ3", JSON.stringify(dataList));
+                }
+            });
+        
+        }else{
+            $("#ansQ3").text(findKey[0].value);
+        }
+     }
+}
+</script>

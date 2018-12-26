@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="exampleInputEmail1">Index</label>
+              <label for="input">Index</label>
               <b-form-input
                 type="number"
                 class="form-control"
@@ -56,7 +56,7 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="exampleInputEmail1">Index</label>
+              <label for="input">Index</label>
               <b-form-input
                 type="number"
                 class="form-control"
@@ -111,7 +111,7 @@ export default {
             .get(baseURI)
             .then(result => {
               var data = result.data;
-              if (data) {
+              if (data.status) {
                 this.ansQ1 = data.results;
                 let tmp = {
                   key: this.inputQ1,
@@ -157,7 +157,7 @@ export default {
           .get(baseURI)
           .then(result => {
             var data = result.data;
-            if (data) {
+            if (data.status) {
               this.ansQ2 = data.results;
               localStorage.setItem("ansQ2", this.ansQ2);
             }
@@ -196,7 +196,7 @@ export default {
             .get(baseURI)
             .then(result => {
               var data = result.data;
-              if (data) {
+              if (data.status) {
                 let tmp = data.results;
                 tmp.forEach(e => {
                   this.ansQ3.push(e.value);
