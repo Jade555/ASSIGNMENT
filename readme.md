@@ -1,5 +1,6 @@
 1. front-end using vue.js (test)
 2. API using Nodejs with Expressjs (test-ws)
+3. Mobile Cross platform using ionic framework (test-ionic) - please start project (test-ws) before run mobile project 
 
 start node server in folder test-ws
 \$ node server.js
